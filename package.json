@@ -4,7 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "lint": "tslint -p .",
+    "prettier.validate": "prettier -c 'src/**/*.*'",
+    "typescript.validate": "tsc -p tsconfig.validate-codebase.json",
+    "test": "jest src --verbose",
+    "codebase.validate": "yarn typescript.validate && yarn prettier.validate && yarn lint && yarn test"
   },
   "author": "",
   "license": "ISC",
@@ -12,6 +16,8 @@
     "rxjs": "^6.5.2"
   },
   "devDependencies": {
+    "@types/jest": "^24.0.15",
+    "husky": "^3.0.1",
     "jest": "^24.8.0",
     "prettier": "^1.18.2",
     "rxjs-tslint": "^0.1.7",
@@ -19,5 +25,10 @@
     "tslint": "^5.18.0",
     "tslint-config-prettier": "^1.18.0",
     "typescript": "^3.5.3"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn codebase.validate"
+    }
   }
 }
