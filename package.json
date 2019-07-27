@@ -6,6 +6,7 @@
   "scripts": {
     "lint": "tslint -p .",
     "prettier.validate": "prettier -c 'src/**/*.*'",
+    "prettier.fix": "prettier --write 'src/**/*.*'",
     "typescript.validate": "tsc -p tsconfig.validate-codebase.json",
     "test": "jest src --verbose",
     "codebase.validate": "yarn typescript.validate && yarn prettier.validate && yarn lint && yarn test"
