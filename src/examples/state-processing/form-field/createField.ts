@@ -20,6 +20,7 @@ export function createField<T>(initialValue: T, params: Params<T>): IFieldStore<
   const field = createState(initialState);
 
   const change = resubject(map(normalize));
+
   const validate = resubject(
     withLatestFrom(validators, (_, validators) => ({
       validators,
