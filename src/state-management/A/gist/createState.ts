@@ -4,7 +4,6 @@ import { IReactiveState } from './types';
 
 export function createState<S>(initialState: S): IReactiveState<S> {
   const state = new BehaviorSubject(initialState);
-
   const rootSubscription = new Subscription();
   const stateProcessingInitializers = [] as (() => Observable<S>)[];
 
@@ -27,22 +26,20 @@ export function createState<S>(initialState: S): IReactiveState<S> {
       );
     }
 
-    return () => {
-      rootSubscription.unsubscribe();
-    };
+    return rootSubscription;
+    //
   }).pipe(shareReplay(replayOptions));
 
   const observable = { [symbolObservable]: () => stateProvider } as any;
   const subscribable = { subscribe: stateProvider.subscribe.bind(stateProvider) };
-  const get = state.getValue.bind(state);
 
   return {
-    ...{
-      ...observable,
-      ...subscribable,
-      observable,
-      subscribable,
-      get,
+    ...observable,
+    ...subscribable,
+    observable,
+    subscribable,
+    get() {
+      return state.getValue();
     },
     feed(input, stateProcessing) {
       stateProcessingInitializers.push(() => stateProcessing(from(input), state));
