@@ -1,6 +1,6 @@
 import { resubject } from '@lib/resubject';
-import { Validator } from '@lib/validation'; // will be a library import
-import { createState } from '@state-management/A'; // will be a library import
+import { createState } from '@lib/state-processing';
+import { Validator } from '@lib/validation';
 import { BehaviorSubject, identity } from 'rxjs';
 import { map, withLatestFrom } from 'rxjs/operators';
 import { createInitialState } from './createInitialState';
