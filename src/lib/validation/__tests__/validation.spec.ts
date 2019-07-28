@@ -2,6 +2,18 @@ import { createValidation } from '../createValidation';
 import { ValidationError } from '../types';
 
 describe('validation', () => {
+  it('emits empty list of errors when given empty validators list', done => {
+    const value = '';
+    const validators = [] as any;
+    const validate = createValidation(validators);
+    const process = validate(value);
+
+    process.subscribe(errors => {
+      expect(errors).toEqual([]);
+      done();
+    });
+  });
+
   it('required', done => {
     const value = 'not empty';
     const validators = [required];
