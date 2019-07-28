@@ -1,11 +1,6 @@
-import { InteropObservable, Observable, Subscribable, Subscription } from 'rxjs';
+import { InteropObservable, Observable, Subscribable } from 'rxjs';
 
 export type StateProcessing<I, S> = (params: Observable<I>, state: Observable<S>) => Observable<S>;
-
-export type StateProcessingMeta<I> = {
-  input: Observable<I>;
-  subscription: Subscription;
-};
 
 export interface IReactiveState<S> extends Subscribable<S>, InteropObservable<S> {
   /**
